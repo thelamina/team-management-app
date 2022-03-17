@@ -1,13 +1,112 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import './assets/fonts/stylesheet.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*::-webkit-scrollbar {
+	width: 4px;
+	height: 4px;
+	border-radius: 2rem;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+*::-webkit-scrollbar-track {
+	box-shadow: 6px -6px 30px 2px rgba(255, 255, 255, 0.226) inset;
+	background: transparent;
+	border-radius: 2rem;
+}
+
+/* Handle */
+*::-webkit-scrollbar-thumb {
+	border-radius: 2rem;
+	background-color: #0a73dc7a;
+	transition: all 0.3s ease-in-out;
+}
+
+/* Handle on hover */
+*::-webkit-scrollbar-thumb:hover {
+	border-radius: 2rem;
+	background-color: #0a74dc;
+}
+
+.fc th {
+	border-style: none !important;
+	/* padding-bottom: 8px !important; */
+}
+.fc td {
+	padding-top: 16px !important;
+}
+
+.fc-header-toolbar.fc-toolbar.fc-toolbar-ltr > div:nth-child(1) > div {
+	display: flex;
+	align-items: center;
+}
+
+.fc .fc-toolbar-title {
+	font-size: 1.2rem !important;
+	font-weight: 500;
+	padding-right: 0.5rem;
+}
+
+.fc .fc-prev-button,
+.fc .fc-next-button {
+	margin-left: 10px !important;
+	padding: 0 !important;
+	background: none !important;
+	height: auto !important;
+	display: inline-block !important;
+	border: none !important;
+	color: rgb(167, 167, 167) !important;
+	font-size: 12px !important;
+	outline: none !important;
+	box-shadow: none !important;
+	transition: all 0.3s ease-in-out !important;
+}
+
+.fc .fc-prev-button:hover,
+.fc .fc-next-button:hover {
+	color: rgb(88, 88, 88) !important;
+}
+
+.fc .fc-scrollgrid,
+.fc .fc-scrollgrid-section > * {
+	border: none !important;
+}
+.fc-view-harness.fc-view-harness-active > div > table > thead {
+	position: sticky !important;
+	top: 0;
+	z-index: 3;
+	background-color: #fff;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+	background: none !important;
+	position: relative !important;
+	color: #fff !important;
+}
+.fc .fc-daygrid-day.fc-day-today::before {
+	width: 2px !important;
+	position: absolute !important;
+	left: 50%;
+	bottom: 0;
+	height: 99% !important;
+	top: 0;
+	z-index: 6 !important;
+	background: #0a73dc !important;
+	content: '' !important;
+}
+
+.fc .fc-daygrid-day.fc-day-today::after {
+	width: 1rem !important;
+	position: absolute !important;
+	top: 0;
+	z-index: 6;
+	left: 38%;
+	border-radius: 100%;
+	height: 1rem !important;
+	background: #0a73dc !important;
+	content: '' !important;
+}
+.fc {
+	
 }
