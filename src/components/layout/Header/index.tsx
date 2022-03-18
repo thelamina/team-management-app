@@ -26,27 +26,21 @@ const Header = ({ toggleMenu, title, subtitle }: Props) => {
 						</button>
 
 						<div className='flex items-center px-4'>
-							{title && (
-								<>
-									<Link
-										to='/'
-										className='font-medium text-base'
-									>
-										{title}
-									</Link>
-								</>
-							)}
-							{subtitle && (
-								<>
-									<MdKeyboardArrowRight className='mx-2' />
-									<Link
-										to='/'
-										className='font-medium text-gray-400 text-base'
-									>
-										{subtitle}
-									</Link>
-								</>
-							)}
+							<>
+								<Link to='/' className='font-medium text-base'>
+									{title || 'Projects'}
+								</Link>
+							</>
+
+							<>
+								<MdKeyboardArrowRight className='mx-2' />
+								<Link
+									to='/'
+									className='font-medium text-gray-400 text-base'
+								>
+									{subtitle || 'GSE Banking App'}
+								</Link>
+							</>
 						</div>
 					</div>
 					<div className='p-1 flex items-center ml-5 mr-4 sm:mr-0 sm:right-auto'>

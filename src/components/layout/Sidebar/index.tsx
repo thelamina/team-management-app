@@ -3,7 +3,7 @@ import { Link, matchPath, useLocation } from 'react-router-dom';
 import { ImStack } from 'react-icons/im';
 import { BsArrowBarLeft } from 'react-icons/bs';
 import { DashboardLinks } from '../../../constants';
-import { MdKeyboardArrowUp } from 'react-icons/md';
+import { MdKeyboardArrowUp, MdOutlineAddCircle } from 'react-icons/md';
 
 type Props = {
 	open: boolean;
@@ -39,8 +39,8 @@ const Sidebar = ({
 			 ${collapsed ? 'lg:w-20' : 'w-80'}
 			 lg:block`}
 		>
-			<div className='bg-gray-50 w-full overflow-auto flex flex-col justify-between h-full dark:bg-gray-700 py-2'>
-				<div className='w-full overflow-scroll h-5/6'>
+			<div className='bg-gray-50 w-full overflow-y-auto overflow-x-hidden flex flex-col justify-between h-full dark:bg-gray-700 py-2'>
+				<div className='w-full overflow-y-auto overflow-x-hidden h-5/6'>
 					<div className='flex w-full items-center justify-between px-6 pb-4 pt-3'>
 						<Link
 							to='/'
@@ -60,7 +60,7 @@ const Sidebar = ({
 							/>
 						</button>
 					</div>
-					<nav className='mt-2 overflow-auto overflow-x-hidden'>
+					<nav className='mt-2 overflow-y-auto overflow-x-hidden'>
 						<ul>
 							{DashboardLinks.map((link, index) => {
 								return (
@@ -122,9 +122,23 @@ const Sidebar = ({
 							})}
 						</ul>
 					</nav>
-					<div className='px-6 my-6'>
-						<button className='bg-gray-300 rounded-2xl w-full p-6'>
-							Create new task
+					<div className={`${collapsed ? 'lg:px-4' : 'px-6'} my-6`}>
+						<button
+							className={`bg-blue-100 rounded-2xl w-full ${
+								collapsed ? 'lg:p-2' : 'p-6'
+							} flex items-center justify-between`}
+						>
+							<span
+								className={`font-medium text-left w-20 ${
+									collapsed ? 'lg:hidden' : 'inline-block'
+								}`}
+							>
+								Create new task
+							</span>
+							<MdOutlineAddCircle
+								className='text-blue-600'
+								size='36'
+							/>
 						</button>
 					</div>
 				</div>

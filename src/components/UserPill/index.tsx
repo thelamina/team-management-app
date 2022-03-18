@@ -9,7 +9,7 @@ type UserProps = {
 
 export const UserPill = ({ name, email, image }: UserProps) => {
 	return (
-		<div className='flex items-center justify-between w-full p-4'>
+		<div className='flex items-center justify-between w-full px-4 py-2'>
 			<div className='inline-flex w-full items-center min-w-max'>
 				<img
 					className='object-cover rounded-full h-10 w-10 bg-black'
