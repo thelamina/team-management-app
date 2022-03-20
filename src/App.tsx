@@ -1,6 +1,11 @@
 import { Router } from './router';
+import { Store } from './store';
 
 const App = () => {
-	return <Router />;
+	return (
+		<Store>
+			<Router />
+		</Store>
+	);
 };
 export default App;

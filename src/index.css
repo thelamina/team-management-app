@@ -84,6 +84,7 @@
 	position: relative !important;
 	color: #fff !important;
 }
+
 .fc .fc-daygrid-day.fc-day-today::before {
 	width: 2px !important;
 	position: absolute !important;
@@ -111,6 +112,7 @@
 .fc .fc-resource-timeline-divider {
 	width: 0 !important;
 }
+
 .fc-theme-standard td {
 	border: 0px solid #ddd !important;
 	border-left: 1px solid #ddd !important;
@@ -146,3 +148,41 @@
 	margin: 0 -10px !important;
 	
 } */
+.fc-searchBtn-button {
+	background: none !important;
+	border: none !important;
+	outline: none !important;
+	box-shadow: none !important;
+	position: 'relative';
+}
+
+.fc-searchBtn-button::after {
+	background: none !important;
+	border: none !important;
+	content: url(https://img.icons8.com/ios-glyphs/24/000000/search--v1.png);
+}
+
+.fc-searchBtn-button + button {
+	display: none !important;
+	background: none !important;
+}
+
+.fc-dayGridMonth-button {
+	padding: 8px 20px !important;
+	padding-right: 60px !important;
+	background: none !important;
+	/* border: none !important; */
+	border: 1px solid gray !important;
+	border-radius: 20px !important;
+	outline: none !important;
+	box-shadow: none !important;
+	color: #000 !important;
+	text-transform: capitalize !important;
+	position: relative !important;
+}
+
+.fc-dayGridMonth-button::after {
+	content: url(https://img.icons8.com/external-those-icons-lineal-those-icons/12/000000/external-down-arrows-those-icons-lineal-those-icons-1.png);
+	position: absolute;
+	right: 20px;
+}

@@ -1,20 +1,36 @@
-import FullCalendar from '@fullcalendar/react';
+import { useContext, useEffect } from 'react';
+import FullCalendar, { EventContentArg } from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 
 import timeGridPlugin from '@fullcalendar/timegrid';
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
 import { EventProgressBar, UserPill } from '../../components';
+import { Users } from '../../utils';
+import { EventContext } from '../../store/event/provider';
 
 export const Projects = () => {
+	const { state, getAllEvents } = useContext(EventContext);
+	console.log(state.events);
+
+	useEffect(() => {
+		getAllEvents();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	return (
 		<div className='w-full relative'>
 			<div className='flex justify-between items-center'>
 				<div>
 					<h2 className='text-xl font-medium'>GSE Banking App</h2>
 					<div className='flex items-center  mt-2'>
-						<span className='mr-2 text-sm text-gray-400'>56%</span>
+						<span className='mr-2 text-sm text-gray-400'>
+							{state.progress}%
+						</span>
 						<div className='w-20 h-[5px] bg-blue-100 rounded-full'>
-							<div className='w-3/5 h-full text-center text-xs text-white bg-gradient-to-r from-blue-200 to-blue-500 rounded-full' />
+							<div
+								style={{ width: state.progress + '%' }}
+								className='h-full animate-pulse text-center text-xs text-white bg-gradient-to-r from-blue-200 to-blue-500 rounded-full'
+							/>
 						</div>
 					</div>
 				</div>
@@ -75,80 +91,15 @@ export const Projects = () => {
 							},
 						},
 					}}
+					eventDidMount={(event) => {
+						console.log('event', event);
+					}}
 					resourceAreaWidth={0}
 					resourcesInitiallyExpanded={true}
-					resources={[
-						{
-							id: '01',
-							extendedProps: {
-								name: 'John Doe',
-								email: 'johndoe@mail.com',
-							},
-						},
-						{
-							id: '02',
-							extendedProps: {
-								name: 'Mark Twain',
-								email: 'mark@mail.com',
-							},
-						},
-						{
-							id: '03',
-							extendedProps: {
-								name: 'Olumide Bells',
-								email: 'olu@mail.com',
-							},
-						},
-						{
-							id: '04',
-							extendedProps: {
-								name: 'Ayo Vector',
-								email: 'vector@mail.com',
-							},
-						},
-						{
-							id: '05',
-							extendedProps: {
-								name: 'Marv O.',
-								email: 'marv@mail.com',
-							},
-						},
-						{
-							id: '06',
-							extendedProps: {
-								name: 'Obilaja F.',
-								email: 'obilaja@mail.com',
-							},
-						},
-						{
-							id: '07',
-							extendedProps: {
-								name: 'Tofunmi Oke',
-								email: 'tofunmi@mail.com',
-							},
-						},
-						{
-							id: '08',
-							extendedProps: {
-								name: 'Opemipo I-D',
-								email: 'opemipo@mail.com',
-							},
-						},
-						{
-							id: '09',
-							extendedProps: {
-								name: 'Dera Nath',
-								email: 'dera@mail.com',
-							},
-						},
-						{
-							id: '10',
-							extendedProps: {
-								name: 'Mino Plank',
-								email: 'plank@mail.com',
-							},
-						},
-					]}
+					resources={Users.map((user) => ({
+						id: user.id,
+						extendedProps: { ...user },
+					}))}
 					resourceLabelClassNames='p-0'
 					resourceLabelContent={(resource) => (
 						<div
@@ -187,9 +138,8 @@ export const Projects = () => {
 						}`;
 					}}
 					customButtons={{
-						search: {
-							text: 'Search',
-
+						searchBtn: {
+							hint: 'Search',
 							click: function () {
 								alert('clicked the custom button!');
 							},
@@ -205,143 +155,28 @@ export const Projects = () => {
 						year: 'numeric',
 					}}
 					headerToolbar={{
-						// start: 'dayGridMonth,timeGridWeek,timeGridDay',
 						left: 'title,prev,next',
 						center: '',
-						end: 'search, dayGridMonth', // will normally be on the right. if RTL, will be on the left
+						end: 'searchBtn, dayGridMonth', // will normally be on the right. if RTL, will be on the left
 					}}
 					visibleRange={(currentDate) => {
 						let startDate = new Date(currentDate.valueOf());
 						let endDate = new Date(currentDate.valueOf());
-
-						startDate.setDate(startDate.getDate() - 9); // One day in the past
-						endDate.setDate(endDate.getDate() + 7); // Two days into the future
-
+						startDate.setDate(startDate.getDate() - 9); // 9 day in the past
+						endDate.setDate(endDate.getDate() + 7); // 7 days into the future
 						return { start: startDate, end: endDate };
 					}}
 					slotDuration='24:00'
 					nowIndicator={true}
 					navLinks={true}
-					// navLinkDayClick={(date, jsEvent: any) => {
-					// 	.log('day', date.toISOString());
-					// 	console.log('coordconsoles', jsEvent.pageX, jsEvent.pageY);
-					// }}
-					eventContent={(event: any) => {
-						return <EventProgressBar event={event} />;
+					eventContent={(event: EventContentArg) => {
+						return <EventProgressBar {...event} />;
 					}}
-					// eventMouseEnter={(event: any, createElement) => {
-					// 	console.log('eventMouseEnter', event);
-					// }}
-
-					eventBackgroundColor='transparent'
-					eventBorderColor='transparent'
-					eventOrderStrict={true}
+					// eventOrderStrict={true}
+					eventClassNames='border-0 bg-transparent'
 					eventOrder='-id'
-					// progressiveEventRendering={true}
-					events={[
-						{
-							resourceId: '01',
-							title: 'Flow Swift transfer',
-							start: new Date('03/13/2022'),
-							end: new Date('03/19/2022'),
-							className: 'bg-transparent',
-							extendedProps: {
-								colorScheme: '[#fd7e2e]',
-							},
-						},
-
-						{
-							resourceId: '02',
-							title: 'Evening Shift',
-							start: new Date('03/11/2022'),
-							end: new Date('03/22/2022'),
-							className: 'bg-transparent',
-							extendedProps: {
-								colorScheme: '[#f9d018]',
-							},
-						},
-
-						{
-							resourceId: '03',
-							title: 'User Profile',
-							start: new Date('03/10/2022'),
-							end: new Date('03/14/2022'),
-							className: 'bg-transparent',
-							extendedProps: {
-								colorScheme: '[#131e3a]',
-							},
-						},
-						{
-							resourceId: '04',
-							title: 'Transfers by phone number',
-							start: new Date('03/08/2022'),
-							end: new Date('03/19/2022'),
-							className: 'bg-transparent',
-							extendedProps: {
-								colorScheme: '[#131e3a]',
-							},
-						},
-						{
-							resourceId: '05',
-							title: 'Chat bot',
-							start: new Date('03/12/2022'),
-							end: new Date('03/19/2022'),
-							className: 'bg-transparent',
-							extendedProps: {
-								colorScheme: 'blue-400',
-							},
-						},
-						{
-							resourceId: '06',
-							title: 'Transaction Analytics',
-							start: new Date('03/19/2022'),
-							end: new Date('03/24/2022'),
-							className: 'bg-transparent',
-							extendedProps: {
-								colorScheme: 'orange-400',
-							},
-						},
-						{
-							resourceId: '07',
-							title: 'Settings',
-							start: new Date('03/12/2022'),
-							end: new Date('03/27/2022'),
-							className: 'bg-transparent',
-							extendedProps: {
-								colorScheme: '[#f9d018]',
-							},
-						},
-						{
-							resourceId: '08',
-							title: 'Settings',
-							start: new Date('03/12/2022'),
-							end: new Date('03/27/2022'),
-							className: 'bg-transparent',
-							extendedProps: {
-								colorScheme: 'blue-400',
-							},
-						},
-						{
-							resourceId: '09',
-							title: 'Settings',
-							start: new Date('03/12/2022'),
-							end: new Date('03/27/2022'),
-							className: 'bg-transparent',
-							extendedProps: {
-								colorScheme: 'blue-400',
-							},
-						},
-						{
-							resourceId: '10',
-							title: 'Settings',
-							start: new Date('03/12/2022'),
-							end: new Date('03/27/2022'),
-							className: 'bg-transparent',
-							extendedProps: {
-								colorScheme: 'blue-400',
-							},
-						},
-					]}
+					// progressiveEventRendering={false}
+					events={state.events}
 				/>
 			</div>
 		</div>
